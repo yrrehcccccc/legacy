@@ -1,4 +1,4 @@
-:root{--bg:#eee8da;--ink:#332a22;--body:"PingFang SC","Noto Sans SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;--weight:300}
+:root{--bg:#eee8da;--ink:#332a22;--body:"Noto Serif SC","Songti SC","STSong",serif;--weight:400}
 .forum-title{font-weight:700}
 .site-header{height:106px;z-index:40;background:color-mix(in srgb,var(--bg) 94%,transparent);border-bottom:1px solid var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .site-name{width:100%;height:54px;padding:16px 20px 0;text-align:center;font-family:var(--body);font-size:clamp(22px,3.6vw,30px);font-weight:400;line-height:1.3;letter-spacing:.12em;color:var(--ink);text-decoration:none}
@@ -29,3 +29,25 @@ main{min-height:calc(100vh - 106px)}
 
 
 .source-chat-marker,.rt-chat>.blank-line{display:none}
+
+/* Shared artwork header; the reading column keeps its established width. */
+:root{--legacy-page-width:min(820px,calc(100vw - 44px));--legacy-header-height:calc(var(--legacy-page-width) * 239 / 1080)}
+.site-header{width:var(--legacy-page-width);height:auto;margin-inline:auto;container-type:inline-size;background:transparent;border:0;-webkit-backdrop-filter:none;backdrop-filter:none}
+.site-header .site-name{display:block;width:100%;height:auto;aspect-ratio:1080/239;margin:0;padding:0;background:url("assets/legacy-top.png") center top/100% auto no-repeat;font-size:0;line-height:0;letter-spacing:0;color:transparent}
+.site-header .word-count{position:absolute;top:6.1cqw;left:2cqw;right:auto;width:max-content;max-width:none;height:auto;min-height:0;margin:0;padding:3px 4px;font-size:clamp(5px,1.5cqw,8px);line-height:1.15;transform:translateY(-50%)}
+.site-header .toolbar{top:6.1cqw;right:2cqw;transform:translateY(-50%)}
+.site-header .toolbar .round{width:clamp(24px,8cqw,40px);height:clamp(24px,8cqw,40px)}
+#settingsPanel{top:calc(var(--legacy-header-height) + 8px);max-height:calc(100dvh - var(--legacy-header-height) - 24px)}
+body:not(.legacy-home) main{min-height:calc(100vh - var(--legacy-header-height))}
+.legacy-chapter-entry main{animation:legacy-chapter-arrival .65s ease both}
+@keyframes legacy-chapter-arrival{from{opacity:0}to{opacity:1}}
+@media(max-width:640px){:root{--legacy-page-width:100%;--legacy-header-height:calc(100vw * 239 / 1080)}}
+@media(min-width:641px){
+  :root{--legacy-header-height:calc(100vw * 241 / 3840)}
+  .site-header{width:100%;margin-inline:0}
+  .site-header .site-name{aspect-ratio:3840/241;background-image:url("assets/legacy-top-desktop.png")}
+  .site-header .word-count{top:max(12px,1.58cqw);left:2cqw;right:auto;max-width:30%;padding:4px 7px;font-size:clamp(8px,.8cqw,11px)}
+  .site-header .toolbar{top:max(14px,1.58cqw);right:2cqw}
+  .site-header .toolbar .round{width:clamp(26px,2.9cqw,42px);height:clamp(26px,2.9cqw,42px)}
+}
+@media(prefers-reduced-motion:reduce){.legacy-chapter-entry main{animation:none}}

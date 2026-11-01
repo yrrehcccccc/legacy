@@ -54,8 +54,12 @@ document.querySelectorAll('[data-size]').forEach(button => button.onclick = () =
 });
 const theme = Number(read('theme') ?? 1);
 document.querySelector('[data-theme="' + (Number.isInteger(theme) && themes[theme] ? theme : 1) + '"]').click();
+if (read('font-default-version') !== '1') {
+  if (read('font') === null || read('font') === 'light') save('font','serif');
+  save('font-default-version','1');
+}
 const font = read('font');
-document.querySelector('[data-font="' + (Object.hasOwn(fonts, font) ? font : 'light') + '"]').click();
+document.querySelector('[data-font="' + (Object.hasOwn(fonts, font) ? font : 'serif') + '"]').click();
 const size = read('size');
 document.querySelector('[data-size="' + (['12','14','16','18','20','23'].includes(size) ? size : '16') + '"]').click();
 
