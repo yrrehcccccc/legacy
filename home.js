@@ -43,9 +43,10 @@
     const travel = Math.max(0,document.documentElement.scrollHeight - innerHeight);
     let height;
     if (mobileLayout.matches) {
-      // Keep the supplied 1080 x 3124 sheet at its natural width-based height.
-      const naturalHeight = poster.clientWidth * 3124 / 1080;
-      height = Math.max(innerHeight,naturalHeight);
+      // Keep the supplied 1080 x 2832 sheet at its natural width-based height.
+      const naturalHeight = poster.clientWidth * 2832 / 1080;
+      // The light paper ends at source row 2225; keep it across the first screen.
+      height = Math.max((innerHeight + 1) * 2832 / 2225,naturalHeight);
       // Keep the slower pan within the natural image bounds.
       const availableTravel = Math.max(0,height - innerHeight) * .85;
       backgroundSpeed = reducedMotion.matches || !travel ? 0 : Math.min(.3,availableTravel / travel);
@@ -56,8 +57,13 @@
     }
     backgroundTravel = travel;
     backgroundEnd = innerHeight - height;
-    // The complete bottom is visible at the end; crop surplus from the top.
-    backgroundStart = Math.min(0,backgroundEnd + travel * backgroundSpeed);
+    if (mobileLayout.matches) {
+      // Start at the top of the supplied sheet; surplus stays below the viewport.
+      backgroundStart = 0;
+      backgroundEnd = -travel * backgroundSpeed;
+    } else {
+      backgroundStart = Math.min(0,backgroundEnd + travel * backgroundSpeed);
+    }
     document.body.style.setProperty('--legacy-back-height',height + 'px');
     drawBackground();
   }
