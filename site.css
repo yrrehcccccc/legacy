@@ -1,0 +1,31 @@
+:root{--bg:#eee8da;--ink:#332a22;--body:"PingFang SC","Noto Sans SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;--weight:300}
+.forum-title{font-weight:700}
+.site-header{height:106px;z-index:40;background:color-mix(in srgb,var(--bg) 94%,transparent);border-bottom:1px solid var(--line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.site-name{width:100%;height:54px;padding:16px 20px 0;text-align:center;font-family:var(--body);font-size:clamp(22px,3.6vw,30px);font-weight:400;line-height:1.3;letter-spacing:.12em;color:var(--ink);text-decoration:none}
+.word-count{left:clamp(20px,3vw,42px);top:80px;transform:translateY(-50%);padding:5px 8px;font-size:10px;line-height:1.2}
+.toolbar{right:clamp(20px,3vw,42px);top:80px;transform:translateY(-50%)}
+.toolbar .round{width:34px;height:34px}
+#settingsPanel{top:116px;max-height:calc(100dvh - 132px)}
+main{min-height:calc(100vh - 106px)}
+.catalog-main{padding-top:72px;padding-bottom:14vh}
+.catalog-title{margin:0 0 32px;font-size:1.2em;font-weight:400;letter-spacing:.15em}
+.catalog-main .toc-list{gap:8px 28px}
+.catalog-main .toc-list a{padding:18px 0;font-size:16px}
+.extra-entry{grid-column:1/-1;margin-top:16px}
+.source-indented{text-indent:0}
+@media(max-width:640px){.word-count{left:20px;top:80px;font-size:9px}.toolbar{right:20px;top:80px}.site-name{padding-top:18px}.catalog-main{padding-top:48px}.catalog-main .toc-list{gap:6px 22px}}
+
+/* Existing read and time markers sit outside message text. */
+:is(.rt-chat,.sf-chat) .reader-message{display:grid;grid-template-columns:minmax(0,1fr);align-items:end;align-self:flex-start;width:fit-content;max-width:100%;min-width:0}
+:is(.rt-chat,.sf-chat) .reader-message-self{align-self:flex-end}
+:is(.rt-chat,.sf-chat) .reader-message-read{grid-template-columns:auto minmax(0,1fr);column-gap:7px}
+:is(.rt-chat,.sf-chat) .reader-message[data-chat-layout] > :is(.rt-bubble,.sf-bubble){grid-column:-2/-1;grid-row:2;justify-self:start;align-self:end;max-width:100%;min-width:0;margin:0;line-height:inherit}
+:is(.rt-chat,.sf-chat) .reader-message-self[data-chat-layout] > :is(.rt-bubble,.sf-bubble){justify-self:end}
+:is(.rt-chat,.sf-chat) .reader-message[data-chat-layout] > :is(.reader-chat-meta,.reader-chat-read){font:400 11px/1.35 system-ui,"PingFang SC","Microsoft YaHei",sans-serif;color:var(--muted,#77736c);letter-spacing:0;text-indent:0}
+:is(.rt-chat,.sf-chat) .reader-message[data-chat-layout] > .reader-chat-meta{grid-column:-2/-1;grid-row:1;margin:0 0 5px;white-space:normal;overflow-wrap:anywhere}
+:is(.rt-chat,.sf-chat) .reader-message[data-chat-layout] > .reader-chat-read{grid-column:1;grid-row:2;align-self:end;margin:0;padding-bottom:4px;white-space:nowrap}
+.sf-chat .sf-bubble:is(.rt-self,.sf-self){align-self:flex-end;background:#f8dce5;border-radius:16px 5px 16px 16px}
+.sf-chat .sf-bubble:is(.rt-self,.sf-self)::before{left:auto;right:-6px;border-width:4px 0 4px 7px;border-color:transparent transparent transparent #f8dce5}
+
+
+.source-chat-marker,.rt-chat>.blank-line{display:none}
