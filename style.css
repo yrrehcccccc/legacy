@@ -78,3 +78,9 @@ body.home-page::after{content:"";position:fixed;inset:0;z-index:35;pointer-event
 .chapter-entry main{animation:chapter-reveal .65s cubic-bezier(.22,1,.36,1) both}
 @keyframes chapter-reveal{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.directory-poster>.poster-rear{will-change:auto}.chapter-entry main{animation:none}.home-page.chapter-leaving .home-main{transform:none}}
+
+/* Responsive images inside chapter content, including manually inserted images. */
+.chapter-body{min-width:0}
+.chapter-body img{display:block;box-sizing:border-box;max-width:100%!important;max-inline-size:100%!important;height:auto!important;block-size:auto!important;margin-inline:auto;object-fit:contain}
+.chapter-body :is(figure,picture){box-sizing:border-box;min-width:0;max-width:100%!important;max-inline-size:100%!important}
+.chapter-body figure{margin-inline:0}
