@@ -30,8 +30,14 @@
   let lastScroll = scrollY;
   let frame = 0;
   let backgroundSpeed = 0;
+  let backgroundStart = 0;
+  let backgroundEnd = 0;
+  let backgroundTravel = 0;
   function drawBackground() {
-    document.body.style.setProperty('--legacy-back-y',(-Math.max(0,scrollY) * backgroundSpeed) + 'px');
+    const scroll = Math.min(backgroundTravel,Math.max(0,scrollY));
+    const offset = backgroundTravel - scroll <= 3
+      ? backgroundEnd : backgroundStart - scroll * backgroundSpeed;
+    document.body.style.setProperty('--legacy-back-y',offset + 'px');
   }
   function measureBackground() {
     const travel = Math.max(0,document.documentElement.scrollHeight - innerHeight);
@@ -40,7 +46,7 @@
       // Keep the supplied 1080 x 3124 sheet at its natural width-based height.
       const naturalHeight = poster.clientWidth * 3124 / 1080;
       height = Math.max(innerHeight,naturalHeight);
-      // Leave some of the pink end below the viewport; never reveal an empty edge.
+      // Keep the slower pan within the natural image bounds.
       const availableTravel = Math.max(0,height - innerHeight) * .85;
       backgroundSpeed = reducedMotion.matches || !travel ? 0 : Math.min(.3,availableTravel / travel);
     } else {
@@ -48,6 +54,10 @@
       // Cover preserves the wide image's aspect ratio while allowing a slower pan.
       height = innerHeight + travel * backgroundSpeed;
     }
+    backgroundTravel = travel;
+    backgroundEnd = innerHeight - height;
+    // The complete bottom is visible at the end; crop surplus from the top.
+    backgroundStart = Math.min(0,backgroundEnd + travel * backgroundSpeed);
     document.body.style.setProperty('--legacy-back-height',height + 'px');
     drawBackground();
   }
