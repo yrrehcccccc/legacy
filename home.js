@@ -84,7 +84,7 @@
     document.body.classList.add('legacy-leaving');
     navigationTimer = setTimeout(() => {
       try { sessionStorage.setItem('legacy-chapter-entry',String(Date.now())); } catch {}
-      location.assign('01.html');
+      location.assign('intro.html');
     }, reducedMotion.matches ? 0 : 520);
   }
   function queueEntry() {
